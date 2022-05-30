@@ -1,0 +1,16 @@
+@import './variables.scss';
+@import '../node_modules/bootstrap/scss/bootstrap.scss';
+@import './animation.scss';
+
+body {
+    background: $blue;
+    background: linear-gradient(35deg, $blue 0%, $yellow 100%);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.form-wrapper {
+    transition: all .3s;
+}

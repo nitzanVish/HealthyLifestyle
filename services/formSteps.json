@@ -1,0 +1,315 @@
+{
+    "screenID":"default",
+    "screens":{
+        "1":{
+            "title":"Tell us about yourself",
+            "titleClassName":"fs-4 mb-3",
+            "className": "mb-4",
+            "componentsData":[
+                {
+                    "name": "Input",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "full_name",
+                        "parentCallback": "handleChange",
+                        "type": "text",
+                        "label": "Full Name",
+                        "placeholder": "",
+                        "autoComplete": "given-name",
+                        "dataValidation": "onlyLatinCharacters,minChars"
+                    }
+                },
+                {
+                    "name": "Input",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "address",
+                        "parentCallback": "handleChange",
+                        "type": "text",
+                        "label": "Address",
+                        "placeholder": "",
+                        "autoComplete": "address-line1"
+                    }
+                },
+                {
+                    "name": "Input",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "email",
+                        "parentCallback": "handleChange",
+                        "type": "email",
+                        "label": "Email",
+                        "placeholder": "",
+                        "autoComplete": "email",
+                        "dataValidation": "email"
+                    }
+                },
+                {
+                    "name": "Input",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "phone",
+                        "parentCallback": "handleChange",
+                        "type": "tel",
+                        "label": "Mobile Number",
+                        "placeholder": "",
+                        "autoComplete": "tel",
+                        "dataValidation": "phoneValidation"
+                    }
+                },
+                {
+                    "name": "Select",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "age",
+                        "parentCallback": "handleChange",
+                        "type": "select",
+                        "label": "Age",
+                        "name":"age",
+                        "options": "$|functionName:listByRange|min:18|max:90|index:1|default:30"
+                    }
+                },
+                {
+                    "name": "Radio",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "gender",
+                        "parentCallback": "handleChange",
+                        "label": "Gender",
+                        "inline": "true",
+                        "options": [
+                            {
+                                "label": "Female",
+                                "value":"F",
+                                "name":"gender",
+                                "type": "radio",
+                                "className": "col-3"
+                            },
+                            {
+                                "label": "Male",
+                                "value":"M",
+                                "name":"gender",
+                                "type": "radio",
+                                "className": "col-3"
+                            },
+                            {
+                                "label": "Other",
+                                "value":"other",
+                                "name":"gender",
+                                "type": "radio",
+                                "className": "col-3"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "validationField":{
+                "method":"and",
+                "values": ["full_name","email", "phone", "age","gender"]
+            }
+        },
+        "2":{
+            "title":"Do you exercise during the week?",
+            "titleClassName":"fs-4 mb-3",
+            "className": "mb-4",
+            "componentsData":[
+                {
+                    "name": "Radio",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "exercise",
+                        "parentCallback": "handleChange",
+                        "options": [
+                            {
+                                "label": "Yes",
+                                "value":"yes",
+                                "name":"exercise",
+                                "action":"showSportTypes",
+                                "type": "radio",
+                                "className": "col-12"
+                            },
+                            {
+                                "label": "No",
+                                "value":"no",
+                                "name":"exercise",
+                                "type": "radio",
+                                "className": "col-12"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "validationField":{
+                "method":"and",
+                "values": ["exercise"]
+            }
+        },
+        "3":{
+            "title":"What kinds of sports do you like?",
+            "titleClassName":"fs-4 mb-3",
+            "className": "mb-4",
+            "componentsData":[
+                {
+                    "name": "Checkbox",
+                    "cols": {
+                        "xs":12
+                    },
+                    "attributes":{
+                        "fieldName": "sportsTypes",
+                        "parentCallback": "handleChange",
+                        "options": [
+                            {
+                                "label": "Tennis",
+                                "value":"tennis",
+                                "name":"sportsTypes",
+                                "type": "checkbox",
+                                "className": "col-12"
+                            },
+                            {
+                                "label": "Football",
+                                "value":"football",
+                                "name":"sportsTypes",
+                                "type": "checkbox",
+                                "className": "col-12"
+                            },
+                            {
+                                "label": "Basketball",
+                                "value":"basketball",
+                                "name":"sportsTypes",
+                                "type": "checkbox",
+                                "className": "col-12"
+                            },
+                            {
+                                "label": "Golf",
+                                "value":"golf",
+                                "name":"sportsTypes",
+                                "type": "checkbox",
+                                "className": "col-12"
+                            },
+                            {
+                                "label": "Boxing",
+                                "value":"boxing",
+                                "name":"sportsTypes",
+                                "type": "checkbox",
+                                "className": "col-12"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "validationField":{
+                "method":"and",
+                "values": ["sportsTypes"]
+            },
+            "showIf":{
+                "questionIds": 2,
+                "questionKey": "exercise",
+                "condition": {
+                    "method":"eq",
+                    "value": "showSportTypes"
+                }
+            }
+        },
+        "4":{
+            "title":"Let's calculate your body mass index",
+            "titleClassName":"fs-4 mb-3",
+            "className": "mb-4",
+            "componentsActions":[
+                {
+                    "functionName":"calculateBMI",
+                    "showResultComp":"Toast",
+                    "requiredFields":["height","weight"]
+                }
+            ],
+            "componentsData":[
+                {
+                    "name": "Select",
+                    "cols": {
+                        "xs":12,
+                        "md":6
+                    },
+                    "attributes":{
+                        "fieldName": "height",
+                        "parentCallback": "handleChange",
+                        "type": "select",
+                        "label": "What is your height? (in cm)",
+                        "name":"height",
+                        "options": "$|functionName:listByRange|min:50|max:250|index:1|default:168"
+                    }
+                },
+                {
+                    "name": "Select",
+                    "cols": {
+                        "xs":12,
+                        "md":6
+                    },
+                    "attributes":{
+                        "fieldName": "weight",
+                        "parentCallback": "handleChange",
+                        "type": "select",
+                        "label": "What is your weight? (in kg)",
+                        "name":"weight",
+                        "options": "$|functionName:listByRange|min:30|max:350|index:1|default:70"
+                    }
+                }
+            ],
+            "validationField":{
+                "method":"and",
+                "values": ["height","weight"]
+            }
+          
+        },
+        "5":{
+            "title":"Thank you for join us!",
+            "titleClassName":"fs-4 mb-3",
+            "className": "mb-4",
+            "componentsData":[
+                {
+                    "name": "Card",
+                    "cols": {
+                        "xs":12,
+                        "md":6
+                    },
+                    "attributes":{
+                        "parentCallback": "handleChange",
+                        "options": [
+                            {
+                                "text": "Smile and laugh out loud several times a day"
+                            },
+                            {
+                                "text": "Have a positive attitude"
+                            },
+                            {
+                                "text": "Get a pedometer and let it motivate you to walk, walk, walk"
+                            },
+                            {
+                                "text": "It's on you"
+                            },
+                            {
+                                "text": "Give it time"
+                            },
+                            {
+                                "text": "Don't compare"
+                            }
+                        ],
+                        "subtitle":"Our Rules Of Healthy Life!"
+                    }
+                }
+            ]
+        }
+    }
+}
